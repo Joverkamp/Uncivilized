@@ -27,54 +27,41 @@ public class Storage : MonoBehaviour
 
     public bool AddItem(ItemObject item)
     {
-        //check that item is a resource object
-        if (item.GetType() == typeof(ResourceObject))
+        for (int i = 0; i < storedItems.Count; i++)
         {
-            ResourceObject resourceItem = (ResourceObject)item;
-
-            for (int i = 0; i < storedItems.Count; i++)
+            if (storedItems[i].itemType == item.itemType)
             {
-                if (storedItems[i].resourceType == resourceItem.resourceType)
+                //add existing item to storage inventory
+                Debug.Log("Item incremented in storage");
+
+                //increment value
+                storedItems[i].Increment();
+
+                //update UI when a new item is stored
+                if (onStorageChangedCallback != null)
                 {
-                    //add existing item to storage inventory
-                    Debug.Log("Item incremented in storage");
-
-                    //increment value
-                    storedItems[i].Increment();
-
-                    //update UI when a new item is stored
-                    if (onStorageChangedCallback != null)
-                    {
-                        onStorageChangedCallback.Invoke();
-                    }
-                    return true;
+                    onStorageChangedCallback.Invoke();
                 }
+                return true;
             }
-            //add new item to storage inventory
-            Debug.Log("New item added to storage");
-
-            //add item to dictionary
-            storedItems.Add(new StorageSlot(resourceItem.resourceType, 1));
-
-            //update UI when a new item is stored
-            if (onStorageChangedCallback != null)
-            {
-                onStorageChangedCallback.Invoke();
-            }
-            return true;
-
         }
-        //item is not a resource object
-        else
+        //add new item to storage inventory
+        Debug.Log("New item added to storage");
+
+        //add item to dictionary
+        storedItems.Add(new StorageSlot(item.itemType, 1));
+
+        //update UI when a new item is stored
+        if (onStorageChangedCallback != null)
         {
-            Debug.Log("Could not add item to storage");
-            return false;
+            onStorageChangedCallback.Invoke();
         }
+        return true;
     }
 
-    public void AddItemRequirement(ResourceType resourceType, int amount)
+    public void AddItemRequirement(ItemType itemType, int amount)
     {
-        requiredItems.Add(new StorageSlot(resourceType, amount));
+        requiredItems.Add(new StorageSlot(itemType, amount));
         if (onStorageChangedCallback != null)
         {
             onStorageChangedCallback.Invoke();
@@ -90,12 +77,12 @@ public class Storage : MonoBehaviour
 [System.Serializable]
 public class StorageSlot
 {
-    public ResourceType resourceType;
+    public ItemType itemType;
     public int amount;
 
-    public StorageSlot(ResourceType _resourceType, int _amount)
+    public StorageSlot(ItemType _itemType, int _amount)
     {
-        resourceType = _resourceType;
+        itemType = _itemType;
         amount = _amount;
     }
 

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 3
-  item: {fileID: 11400000, guid: b422d0b92bde0d24b86dbbb640fb0a31, type: 2}
+  item: {fileID: 11400000, guid: 1892bfb54db258a47a08e42598eb8b39, type: 2}
 --- !u!135 &7622270089701909066
 SphereCollider:
   m_ObjectHideFlags: 0

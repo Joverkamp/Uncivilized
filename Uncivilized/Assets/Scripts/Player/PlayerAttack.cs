@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    //weapon information
     public Transform weaponPivotR;
+    public float staminaUsage = 30.0f;
 
+    //components
     private GameObject _camera;
-    private PlayerController _playerController;
+    private PlayerMovement _playerController;
     private Animator _animator;
     private PlayerInputHandler _input;
+    private PlayerStamina _playerStamina;
+
     private GameObject _weapon;
     private BoxCollider _weaponCollider;
+    
 
     void Start()
     {
+        //get components
         _camera = Camera.main.gameObject;
-        _playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<PlayerMovement>();
         _animator = GetComponent<Animator>();
         _input = GetComponent<PlayerInputHandler>();
+        _playerStamina = GetComponent<PlayerStamina>();
 
+        //set up wapon collider
         _weapon = weaponPivotR.GetChild(0).gameObject;
         _weaponCollider = _weapon.GetComponent<BoxCollider>();
         _weaponCollider.enabled = false;
@@ -33,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        if (_input.attack)
+        if (_input.attack && _playerStamina.stamina > staminaUsage)
         {
             //update animator
             _animator.SetBool("attack", true);
@@ -54,6 +63,9 @@ public class PlayerAttack : MonoBehaviour
 
         //update animator
         _animator.SetBool("attack", false);
+
+        //decrease stamina
+        _playerStamina.LoseStamina(staminaUsage);
     }
 
     public void AttackEnd()

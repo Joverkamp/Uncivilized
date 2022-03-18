@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b8b0976b105c6478aed9fb38b889e2, type: 3}
-  m_Name: Water
+  m_Script: {fileID: 11500000, guid: 54be1641b01645c4e967e2f1829c4852, type: 3}
+  m_Name: Food
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2475824769451226822, guid: b84e8887b1c2ef349957f011d2db6e4c, type: 3}
-  icon: {fileID: 21300000, guid: 330ed8cb0e6dee049a3d8f0c77ce40a5, type: 3}
+  prefab: {fileID: 1650634614815779092, guid: 9a86245a539313f42b6f922211917a4c, type: 3}
+  icon: {fileID: 21300000, guid: 6a5d56b410c5da94cb6b39a7b480d963, type: 3}
   itemType: 0
   desciption: 
-  resourceType: 1

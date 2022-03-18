@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     //movement properties
     [Header("Player Movement")]
@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController _characterController;
     private PlayerInputHandler _input;
     private Animator _animator;
+    private PlayerStamina _playerStamina;
 
     //current state of animator
     AnimatorStateInfo animationState;
@@ -56,7 +57,9 @@ public class PlayerController : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputHandler>();
         _animator = GetComponentInChildren<Animator>();
+        _playerStamina = GetComponent<PlayerStamina>();
     }
+
 
     // Update is called once per frame
     private void Update()
@@ -69,10 +72,12 @@ public class PlayerController : MonoBehaviour
         if (!_freezeMovement) Movement();
     }
 
+
     private void LateUpdate()
     {
         CameraRotation();
     }
+
 
     private void JumpAndGravity()
     {
@@ -130,6 +135,7 @@ public class PlayerController : MonoBehaviour
         _characterController.Move(deltaY * Time.deltaTime);
     }
 
+
     private void GroundedCheck()
     {
         // set sphere position, with offset
@@ -141,16 +147,21 @@ public class PlayerController : MonoBehaviour
          _animator.SetBool("isGrounded", grounded);
     }
 
+
     private void Movement()
     {
         //get movement vector
         Vector3 deltaXZ = new Vector3(_input.horizontal, 0f, _input.vertical);
 
         //check for sprint if moving forward
-        if (_input.sprint && deltaXZ == Vector3.forward)
+        if (_input.sprint && deltaXZ == Vector3.forward && _playerStamina.stamina > 0.0f)
         {
+            //flag running and increase speed
             isRunning = true;
             speed = baseSpeed + 3.0f;
+
+            //decrease stamina
+            _playerStamina.LoseStamina(20.0f * Time.deltaTime);
         }
         else
         {
@@ -188,16 +199,17 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("velocitySide", velocityZ, 0.1f, Time.deltaTime);
     }
 
+
     public void FreezeMovement()
     {
         _freezeMovement = true;
     }
 
+
     public void UnfreezeMovement()
     {
         _freezeMovement = false;
     }
-
 
 
     private void CameraRotation()
@@ -216,6 +228,7 @@ public class PlayerController : MonoBehaviour
         // Cinemachine will follow this target
         _virtualCameraTarget.rotation = Quaternion.Euler(_cinemachineTargetPitch, _cinemachineTargetYaw, 0.0f);
     }
+
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {

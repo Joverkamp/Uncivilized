@@ -4,10 +4,14 @@ using UnityEngine;
 
 public enum ItemType
 {
-    resource
+    food,
+    water,
+    wood,
+    experience
 }
 
-public abstract class ItemObject : ScriptableObject
+[CreateAssetMenu]
+public class ItemObject : ScriptableObject
 {
     public GameObject prefab;
     public Sprite icon;
@@ -15,7 +19,7 @@ public abstract class ItemObject : ScriptableObject
     [TextArea(15,20)]
     public string desciption;
 
-    public virtual void Use()
+    public void Use()
     {
         Debug.Log("Iteracted with" + itemType);
     }

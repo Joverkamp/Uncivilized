@@ -12,7 +12,7 @@ public class StorageUI : MonoBehaviour
     public Transform checklist;
     public GameObject tmpPrefab;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         //get ref to singleton
@@ -22,9 +22,9 @@ public class StorageUI : MonoBehaviour
         storage.onStorageChangedCallback += UpdateUI;
 
         //TODO level requirements need to be handled elsewhere
-        storage.AddItemRequirement(ResourceType.food, 5);
-        storage.AddItemRequirement(ResourceType.water, 6);
-        storage.AddItemRequirement(ResourceType.wood, 4);
+        storage.AddItemRequirement(ItemType.food, 5);
+        storage.AddItemRequirement(ItemType.water, 6);
+        storage.AddItemRequirement(ItemType.wood, 4);
     }
     
     void UpdateUI()
@@ -45,7 +45,7 @@ public class StorageUI : MonoBehaviour
             //get value for stored v required items
             foreach (StorageSlot storedSlot in storage.storedItems)
             {
-                if (requiredSlot.resourceType == storedSlot.resourceType)
+                if (requiredSlot.itemType == storedSlot.itemType)
                 {
                     stored = storedSlot.amount;
                     break;
@@ -58,7 +58,7 @@ public class StorageUI : MonoBehaviour
 
             //get TMP component and change text
             TextMeshProUGUI tmp = newChecklistItem.GetComponent<TextMeshProUGUI>();
-            tmp.text = requiredSlot.resourceType + "(" + stored + "/" + required + ")";
+            tmp.text = requiredSlot.itemType + "(" + stored + "/" + required + ")";
 
         }
     }

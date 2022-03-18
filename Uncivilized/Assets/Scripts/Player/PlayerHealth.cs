@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 5.0f;
+    [Header("Health Values")]
+    public PlayerStats stats;
+    public float maxHealth;
     public float health;
+
+    [Header("UI")]
     public PlayerHealthBarUI healthBarUI;
 
     private Animator _animator;
+
+    private void Awake()
+    {
+        //calculate max health from player stats
+        maxHealth = 100 + (stats.GetHealthLvl() * 10);
+    }
 
     void Start()
     {   
@@ -22,19 +32,16 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    void Update()
-    {
-
-    }
 
     void UpdateHealthBar()
     {
         healthBarUI.SetHealthBarPercentage(health / maxHealth);
     }
 
-    public void TakeDamage()
+
+    public void LoseHealth()
     {
-        health -= 1.0f;
+        health -= 25.0f;
         if (health <= 0.0f)
         {
             //StartCoroutine(Die());
@@ -58,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EnemyWeapon"))
         {
-            TakeDamage();
+            LoseHealth();
             Debug.Log("Player Health: " + health);
         }
     }

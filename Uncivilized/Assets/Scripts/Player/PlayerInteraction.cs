@@ -10,6 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     private Camera _camera;
     private PlayerInputHandler _input;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerInteraction : MonoBehaviour
         _input = GetComponent<PlayerInputHandler>();
 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -39,6 +41,7 @@ public class PlayerInteraction : MonoBehaviour
             PlayerInventory.instance.Drop(transform);
         }
     }
+
 
     private void CastRayForInteractable()
     {
