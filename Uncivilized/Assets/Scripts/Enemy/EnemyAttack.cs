@@ -53,6 +53,5 @@ public class EnemyAttack : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         //deactivate collider
         _weaponCollider.enabled = false;
-        Debug.Log("Player Collider Disabled");
     }
 }

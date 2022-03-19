@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     //movement properties
     [Header("Player Movement")]
     public float baseSpeed = 5.0f;          //how fast player moves
-    public float jumpForce = 10.0f;         //how high player jumps
+    public float jumpForce = 7.0f;         //how high player jumps
     public float gravity = 9.81f;           //rate of gravity
     public float jumpTimeout = 0.50f;       //jump cooldown
     public float fallTimeout = 0.25f;       //time ungrounded before falling
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Grounded")]
     public bool grounded = true;            //grouded state
     public float groundedOffset = -0.14f;   //offset for collision sphere
-    public float groundedRadius = 0.28f;    //radius of grounded check
+    public float groundedRadius = 0.4f;    //radius of grounded check
     public LayerMask groundLayers;          //layers considered ground
 
     private bool _freezeMovement;

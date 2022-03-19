@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54be1641b01645c4e967e2f1829c4852, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2475824769451226822, guid: b84e8887b1c2ef349957f011d2db6e4c, type: 3}
+  prefab: {fileID: 6688210646660766821, guid: 81c356b1f540248e08a59f5996807288, type: 3}
   icon: {fileID: 21300000, guid: 330ed8cb0e6dee049a3d8f0c77ce40a5, type: 3}
   itemType: 1
   desciption: 
