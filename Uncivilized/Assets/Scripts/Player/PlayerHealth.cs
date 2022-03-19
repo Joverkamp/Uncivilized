@@ -45,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0.0f)
         {
             //StartCoroutine(Die());
+            _animator.SetTrigger("takeDamage");
         }
         else
         {
@@ -66,7 +67,6 @@ public class PlayerHealth : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyWeapon"))
         {
             LoseHealth();
-            Debug.Log("Player Health: " + health);
         }
     }
 }

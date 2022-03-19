@@ -30,10 +30,10 @@ public class EnemyAttack : MonoBehaviour
         //update animator
         _animator.SetBool("attack", true);
 
-        //turn player to face camera angle
-        transform.LookAt(playerTransform);
-
-        Debug.Log("Attack");
+        //rotate towards player
+        var playerPosition = playerTransform.position;
+        playerPosition.y = transform.position.y;
+        transform.LookAt(playerPosition);
     }
 
     public void AttackStart()
@@ -43,11 +43,16 @@ public class EnemyAttack : MonoBehaviour
 
         //update animator
         _animator.SetBool("attack", false);
+
+        //start coroutine to disable hitbox
+        StartCoroutine(AttackEnd());
     }
 
-    public void AttackEnd()
+    IEnumerator AttackEnd()
     {
+        yield return new WaitForSeconds(0.05f);
         //deactivate collider
         _weaponCollider.enabled = false;
+        Debug.Log("Player Collider Disabled");
     }
 }

@@ -66,12 +66,17 @@ public class PlayerAttack : MonoBehaviour
 
         //decrease stamina
         _playerStamina.LoseStamina(staminaUsage);
+
+        //start coroutine to disable hitbox
+        StartCoroutine(AttackEnd());
     }
 
-    public void AttackEnd()
+    IEnumerator AttackEnd()
     {
+        yield return new WaitForSeconds(0.05f);
         //deactivate collider
         _weaponCollider.enabled = false;
+        Debug.Log("Player Collider Disabled");
     }
 
     IEnumerator FreezeMovement()

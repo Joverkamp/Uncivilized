@@ -51,7 +51,6 @@ public class EnemyHealth : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerWeapon")){
             other.enabled = false;
             TakeDamage();
-            Debug.Log("Enemy Health: " + health);
         }
     }
 }

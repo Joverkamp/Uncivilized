@@ -35,7 +35,9 @@ public class AiStateCombat : AiState
         }
 
         //rotate towards player
-        agent.transform.LookAt(playerTransform);
+        var playerPosition = playerTransform.position;
+        playerPosition.y = agent.transform.position.y;
+        agent.transform.LookAt(playerPosition);
 
         //transition to chase player state when out of range
         float distance = Vector3.Distance(agent.transform.position, playerTransform.position);
