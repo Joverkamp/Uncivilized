@@ -19,7 +19,7 @@ public class AiAgent : MonoBehaviour
     public float patrolDistance = 10.0f; //area to patrol
     public Vector3 patrolPosition; //where to calculate patrol path from
 
-    [Header("Patroling area")]
+    [Header("Combat")]
     public float attackTime = 3.5f;
 
 

@@ -3237,7 +3237,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.7
   m_Radius: 0.4
-  m_SlopeLimit: 45
+  m_SlopeLimit: 30
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -3325,9 +3325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa78c99b1f6d400408c3a154df6611a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwPivot: {fileID: 0}
-  projectilePrefab: {fileID: 0}
+  throwPivot: {fileID: 254720386}
+  projectilePrefab: {fileID: 1115346442114497531, guid: 936d9e2322662c94ab9796c275462e6b, type: 3}
   staminaUsage: 15
+  environment: {fileID: 0}
 --- !u!114 &7198893976090845824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3359,7 +3360,8 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: a4c522b62a58b874090f47048fdfd6d2, type: 2}
   maxStamina: 100
   stamina: 0
-  recoveryTime: 2
+  recoveryTime: 3
+  recoverySpeed: 40
   _recoveryTimer: 0
   staminaBarUI: {fileID: 0}
 --- !u!114 &7198893976090845826

@@ -22,9 +22,9 @@ public class StorageUI : MonoBehaviour
         _storage.onStorageChangedCallback += UpdateUI;
 
         //TODO level requirements need to be handled elsewhere
-        _storage.AddItemRequirement(ItemType.food, 5);
-        _storage.AddItemRequirement(ItemType.water, 6);
-        _storage.AddItemRequirement(ItemType.wood, 4);
+        _storage.AddItemRequirement(ItemType.food, 3);
+        _storage.AddItemRequirement(ItemType.water, 3);
+        _storage.AddItemRequirement(ItemType.wood, 3);
     }
     
     void UpdateUI()

@@ -325,7 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPivotR: {fileID: 4542579398225029010}
-  playerTransform: {fileID: 0}
 --- !u!1 &291685832094084886
 GameObject:
   m_ObjectHideFlags: 0

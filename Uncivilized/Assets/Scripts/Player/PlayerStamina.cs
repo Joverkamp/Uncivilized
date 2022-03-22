@@ -8,7 +8,8 @@ public class PlayerStamina : MonoBehaviour
     public PlayerStats stats;
     public float maxStamina;
     public float stamina;
-    public float recoveryTime;
+    public float recoveryTime = 3.0f;
+    public float recoverySpeed =  30.0f;
 
     public float _recoveryTimer;
 
@@ -51,7 +52,7 @@ public class PlayerStamina : MonoBehaviour
         {
             if(stamina < maxStamina)
             {
-                stamina += 20 * Time.deltaTime;
+                stamina += recoverySpeed * Time.deltaTime;
                 UpdateStaminaBar();
             }
         }
