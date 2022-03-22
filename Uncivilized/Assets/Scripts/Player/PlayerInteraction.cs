@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     private Transform _lookPoint;
     private Camera _camera;
     private PlayerInputHandler _input;
+    private PlayerInventory _playerInventory;
 
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
         _lookPoint = GameObject.Find("Look Point").transform;
         _camera = Camera.main;
         _input = GetComponent<PlayerInputHandler>();
+        _playerInventory = PlayerInventory.instance;
 
     }
 
@@ -34,11 +36,13 @@ public class PlayerInteraction : MonoBehaviour
             if(_currTarget != null){
                 _currTarget.OnInteract();
             }
+            _input.interact = false;
         }
         //dropping items
         if(_input.drop)
         {
-            PlayerInventory.instance.Drop(transform);
+            _playerInventory.Drop(transform);
+            _input.drop = false;
         }
     }
 

@@ -19,56 +19,63 @@ public class PlayerInventory : MonoBehaviour
     }
     #endregion
 
-    public ItemObject heldItem;
+    public List<ItemObject> itemSlots = new List<ItemObject>();
+    public int numSlots = 3;
 
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public bool Add(ItemObject item)
+    private void Start()
     {
-        //already holding an item
-        if(heldItem != null)
+        for(int i = 0; i < numSlots; i++)
         {
-            //TODO: display UI message
-            Debug.Log("Already holding an item");
-            return false;
+            itemSlots.Add(null);
         }
-        //set new held item
-        else
+    }
+
+    public bool Add(ItemObject newItem)
+    {
+        //look for an empty slot
+        for(int i = 0; i < numSlots; i++)
         {
-            heldItem = item;
-            //update UI when a new item is picked up
-            if (onItemChangedCallback != null)
+            if(itemSlots[i] == null)
             {
-                onItemChangedCallback.Invoke();
+                itemSlots[i] = newItem;
+
+                //update UI
+                if (onItemChangedCallback != null)
+                {
+                    onItemChangedCallback.Invoke();
+                }
+                return true;
             }
-            return true;
         }
+        //inventory full
+        return false;
     }
     public void Drop(Transform dropPos)
     {
-        if (heldItem != null)
+        //drop first item in inventory
+        for (int i = 0; i < numSlots; i++)
         {
-            //drop item in world space in front of player
-            Instantiate(heldItem.prefab, dropPos.position + dropPos.TransformDirection(new Vector3(0, 1.0f, 2.0f)), transform.rotation);
-            heldItem = null;
-
-            //update UI when an item is dropped
-            if (onItemChangedCallback != null)
+            if (itemSlots[i] != null)
             {
-                onItemChangedCallback.Invoke();
+                Instantiate(itemSlots[i].prefab, dropPos.position + dropPos.TransformDirection(new Vector3(0, 1.0f, 2.0f)), transform.rotation);
+                itemSlots[i] = null;
+
+                //update UI when an item is dropped
+                if (onItemChangedCallback != null)
+                {
+                    onItemChangedCallback.Invoke();
+                }
+                break;
             }
-        }
-        else
-        {
-            //TODO: display UI message
-            Debug.Log("Not holding an item");
         }
     }
 
-    public void Remove()
+    public void Remove(int index)
     {
-        heldItem = null;
+        itemSlots[index] = null;
 
         //update UI when an item is dropped
         if (onItemChangedCallback != null)
@@ -77,3 +84,4 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 }
+

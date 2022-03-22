@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public PlayerHealthBarUI healthBarUI;
 
     private Animator _animator;
+    private PlayerThrow _playerThrow;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     {   
         //get components
         _animator = GetComponent<Animator>();
+        _playerThrow = GetComponent<PlayerThrow>();
 
         //initialize health to max health
         health = maxHealth;
@@ -67,6 +69,12 @@ public class PlayerHealth : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyWeapon"))
         {
             LoseHealth();
+
+            //destroy projectile if player is mid-throw
+            if (_playerThrow.ProjectileHeld())
+            {
+                _playerThrow.DestroyProjectile();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class AiAgent : MonoBehaviour
     public AiStateId initialState;
     public NavMeshAgent navMeshAgent;
 
-    [Header("Chasing Player")]
+    [Header("Chasing")]
     public float chaseTime = 1.0f; //time between pathfinding calculations
     public float chaseDistance = 10.0f; //distance enemy will pursue player
     public float stopDistance = 2.0f; //stopping distance to player
@@ -18,6 +18,9 @@ public class AiAgent : MonoBehaviour
     public float patrolTime = 4.0f; //time waiting before changing patrol path
     public float patrolDistance = 10.0f; //area to patrol
     public Vector3 patrolPosition; //where to calculate patrol path from
+
+    [Header("Patroling area")]
+    public float attackTime = 3.5f;
 
 
     void Start()

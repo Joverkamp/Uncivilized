@@ -6,7 +6,7 @@ using TMPro;
 public class StorageUI : MonoBehaviour
 {
     //ref to storage singleton
-    Storage storage;
+    private Storage _storage;
 
     //components
     public Transform checklist;
@@ -16,15 +16,15 @@ public class StorageUI : MonoBehaviour
     void Start()
     {
         //get ref to singleton
-        storage = Storage.instance;
+        _storage = Storage.instance;
 
         //subscribe to delegate
-        storage.onStorageChangedCallback += UpdateUI;
+        _storage.onStorageChangedCallback += UpdateUI;
 
         //TODO level requirements need to be handled elsewhere
-        storage.AddItemRequirement(ItemType.food, 5);
-        storage.AddItemRequirement(ItemType.water, 6);
-        storage.AddItemRequirement(ItemType.wood, 4);
+        _storage.AddItemRequirement(ItemType.food, 5);
+        _storage.AddItemRequirement(ItemType.water, 6);
+        _storage.AddItemRequirement(ItemType.wood, 4);
     }
     
     void UpdateUI()
@@ -36,14 +36,14 @@ public class StorageUI : MonoBehaviour
         }
 
         //make tmp objects for required items
-        foreach(StorageSlot requiredSlot in storage.requiredItems)
+        foreach(StorageSlot requiredSlot in _storage.requiredItems)
         {
             //values for stored v required items
             int stored = 0;
             int required = requiredSlot.amount;
 
             //get value for stored v required items
-            foreach (StorageSlot storedSlot in storage.storedItems)
+            foreach (StorageSlot storedSlot in _storage.storedItems)
             {
                 if (requiredSlot.itemType == storedSlot.itemType)
                 {

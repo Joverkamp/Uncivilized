@@ -32,7 +32,6 @@ public class Storage : MonoBehaviour
             if (storedItems[i].itemType == item.itemType)
             {
                 //add existing item to storage inventory
-                Debug.Log("Item incremented in storage");
 
                 //increment value
                 storedItems[i].Increment();
@@ -46,7 +45,6 @@ public class Storage : MonoBehaviour
             }
         }
         //add new item to storage inventory
-        Debug.Log("New item added to storage");
 
         //add item to dictionary
         storedItems.Add(new StorageSlot(item.itemType, 1));

@@ -6,7 +6,7 @@ public class AiStateCombat : AiState
 {
     public Transform playerTransform;
     private EnemyAttack enemyAttack;
-    public float timer = 5.0f;
+    public float timer = 1.0f;
 
     public AiStateId GetId()
     {
@@ -31,7 +31,7 @@ public class AiStateCombat : AiState
         if(timer <= 0.0f)
         {
             enemyAttack.Attack();
-            timer = 5.0f;
+            timer = agent.attackTime;
         }
 
         //rotate towards player
@@ -50,5 +50,6 @@ public class AiStateCombat : AiState
 
     public void Exit(AiAgent agent)
     {
+        timer = 1.0f;
     }
 }

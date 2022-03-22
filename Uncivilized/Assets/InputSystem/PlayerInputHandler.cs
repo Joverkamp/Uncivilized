@@ -16,6 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool jump;
     public bool sprint;
     public bool attack;
+    public bool throwAttack;
 
     public float threshold = 0.1f;
 
@@ -31,39 +32,36 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnEnable()
     {
         //movement delegates
-        inputActions.Player.Move.started += ctx => Move(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         inputActions.Player.Move.canceled += ctx => Move(ctx.ReadValue<Vector2>());
 
         //camera look delegates
-        inputActions.Player.Look.started += ctx => Look(ctx.ReadValue<Vector2>());
         inputActions.Player.Look.performed += ctx => Look(ctx.ReadValue<Vector2>());
         inputActions.Player.Look.canceled += ctx => Look(ctx.ReadValue<Vector2>());
 
         //interaction delegates
-        inputActions.Player.Interact.started += ctx => Interact(ctx.ReadValue<float>());
         inputActions.Player.Interact.performed += ctx => Interact(ctx.ReadValue<float>());
         inputActions.Player.Interact.canceled += ctx => Interact(ctx.ReadValue<float>());
 
         //drop delegates
-        inputActions.Player.Drop.started += ctx => Drop(ctx.ReadValue<float>());
         inputActions.Player.Drop.performed += ctx => Drop(ctx.ReadValue<float>());
         inputActions.Player.Drop.canceled += ctx => Drop(ctx.ReadValue<float>());
 
         //jump delegates
-        inputActions.Player.Jump.started += ctx => Jump(ctx.ReadValue<float>());
         inputActions.Player.Jump.performed += ctx => Jump(ctx.ReadValue<float>());
         inputActions.Player.Jump.canceled += ctx => Jump(ctx.ReadValue<float>());
 
         //sprint delegates
-        inputActions.Player.Sprint.started += ctx => Sprint(ctx.ReadValue<float>());
         inputActions.Player.Sprint.performed += ctx => Sprint(ctx.ReadValue<float>());
         inputActions.Player.Sprint.canceled += ctx => Sprint(ctx.ReadValue<float>());
 
         //attack delegates
-        inputActions.Player.Attack.started += ctx => Attack(ctx.ReadValue<float>());
         inputActions.Player.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
         inputActions.Player.Attack.canceled += ctx => Attack(ctx.ReadValue<float>());
+
+        //attack delegates
+        inputActions.Player.Throw.performed += ctx => ThrowAttack(ctx.ReadValue<float>());
+        inputActions.Player.Throw.canceled += ctx => ThrowAttack(ctx.ReadValue<float>());
 
         //enable all actions
         inputActions.Enable();
@@ -133,4 +131,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         attack = ctx > threshold ? true : false;
     }
+
+    private void ThrowAttack(float ctx)
+    {
+        throwAttack = ctx > threshold ? true : false;
+    }
+
 }

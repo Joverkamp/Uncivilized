@@ -38,17 +38,17 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         Attack();
+        Debug.Log("Throw: " + _input.throwAttack);
+        Debug.Log("Attack: " + _input.attack);
     }
 
     private void Attack()
     {
-        if (_input.attack && _playerStamina.stamina > staminaUsage)
+        _animator.SetBool("attack", false);
+        if (_input.attack && _playerStamina.stamina > 1.0f)
         {
             //update animator
             _animator.SetBool("attack", true);
-
-            //freeze movement while attacking
-            StartCoroutine(FreezeMovement());
 
             //turn player to face camera angle
             float targetAngle = _camera.transform.eulerAngles.y;
@@ -78,7 +78,7 @@ public class PlayerAttack : MonoBehaviour
         _weaponCollider.enabled = false;
     }
 
-    IEnumerator FreezeMovement()
+    IEnumerator AttackFreeze()
     {
         _playerController.FreezeMovement();
         yield return new WaitForSeconds(1.2f);
