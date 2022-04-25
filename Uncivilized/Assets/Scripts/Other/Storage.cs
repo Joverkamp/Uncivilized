@@ -25,6 +25,19 @@ public class Storage : MonoBehaviour
     public delegate void OnStorageChanged();
     public OnStorageChanged onStorageChangedCallback;
 
+
+    public delegate void OnRequirementsMet();
+    public static OnRequirementsMet requirementsMetCallback;
+
+    private void Start()
+    {
+        //update UI when a new item is stored
+        if (onStorageChangedCallback != null)
+        {
+            onStorageChangedCallback.Invoke();
+        }
+    }
+
     public bool AddItem(ItemObject item)
     {
         for (int i = 0; i < storedItems.Count; i++)
@@ -41,6 +54,7 @@ public class Storage : MonoBehaviour
                 {
                     onStorageChangedCallback.Invoke();
                 }
+                CheckRequirementsMet();
                 return true;
             }
         }
@@ -56,6 +70,37 @@ public class Storage : MonoBehaviour
         }
         return true;
     }
+
+    void CheckRequirementsMet()
+    {
+        bool requirementsMet = true;
+
+        //check to see f each storage slot is <= the required amount
+        foreach (StorageSlot requiredSlot in requiredItems)
+        {
+            //get value for stored v required items
+            foreach (StorageSlot storedSlot in storedItems)
+            {
+                if (requiredSlot.itemType == storedSlot.itemType)
+                {
+                    if(storedSlot.amount < requiredSlot.amount)
+                    {
+                        requirementsMet = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //invoke event that staorage requirements have been met
+        if (requirementsMet)
+        {
+            if (requirementsMetCallback != null)
+            {
+                requirementsMetCallback.Invoke();
+            }
+        }
+    }   
 
     public void AddItemRequirement(ItemType itemType, int amount)
     {

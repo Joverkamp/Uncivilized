@@ -31,7 +31,8 @@ public class AiStateCombat : AiState
         if(timer <= 0.0f)
         {
             enemyAttack.Attack();
-            timer = agent.attackTime;
+            float attackTimeNoise = Random.Range(-0.5f, 0.5f);
+            timer = agent.attackTime + attackTimeNoise;
         }
 
         //rotate towards player
@@ -50,6 +51,7 @@ public class AiStateCombat : AiState
 
     public void Exit(AiAgent agent)
     {
-        timer = 1.0f;
+        float attackTimeNoise = Random.Range(-0.5f, 0.5f);
+        timer = 1.0f + attackTimeNoise;
     }
 }

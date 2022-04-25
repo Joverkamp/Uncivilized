@@ -49,7 +49,7 @@ public class EnemyHealth : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerWeapon")){
-            other.enabled = false;
+            //other.enabled = false;
             TakeDamage();
         }
     }

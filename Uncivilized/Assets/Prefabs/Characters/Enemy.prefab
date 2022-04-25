@@ -297,7 +297,7 @@ MonoBehaviour:
   patrolTime: 4
   patrolDistance: 5
   patrolPosition: {x: 0, y: 0, z: 0}
-  attackTime: 5
+  attackTime: 3
 --- !u!114 &90751470216934815
 MonoBehaviour:
   m_ObjectHideFlags: 0

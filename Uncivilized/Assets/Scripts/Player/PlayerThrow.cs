@@ -54,9 +54,6 @@ public class PlayerThrow : MonoBehaviour
 
         //update animator
         _animator.SetBool("throw", false);
-
-        //decrease stamina
-        _playerStamina.LoseStamina(staminaUsage);
     }
 
     public void ThrowEnd()
@@ -66,9 +63,13 @@ public class PlayerThrow : MonoBehaviour
         float targetAngle = _camera.transform.eulerAngles.y;
         transform.localEulerAngles = new Vector3(0, targetAngle, 0);
 
-        //deparent projectile, calculate and add force
+        //throw
         if (_projectile != null)
         {
+            //decrease stamina
+            _playerStamina.LoseStamina(staminaUsage);
+
+            //deparent projectile, calculate and add force
             _projectile.transform.SetParent(environment);
             Rigidbody rb = _projectile.GetComponent<Rigidbody>();
             Vector3 throwDirection = (_camera.transform.forward * 700.0f) + (Vector3.up * 250.0f) + (transform.right * 30.0f);

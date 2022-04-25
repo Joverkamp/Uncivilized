@@ -14,6 +14,11 @@ public class PlayerHealth : MonoBehaviour
 
     private Animator _animator;
     private PlayerThrow _playerThrow;
+    private PlayerMovement _playerMovement;
+
+    //event for player death
+    public delegate void OnPlayerDeath();
+    public static OnPlayerDeath playerDeathCallback;
 
     private void Awake()
     {
@@ -26,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         //get components
         _animator = GetComponent<Animator>();
         _playerThrow = GetComponent<PlayerThrow>();
+        _playerMovement = GetComponent<PlayerMovement>();
 
         //initialize health to max health
         health = maxHealth;
@@ -46,8 +52,8 @@ public class PlayerHealth : MonoBehaviour
         health -= 25.0f;
         if (health <= 0.0f)
         {
-            //StartCoroutine(Die());
-            _animator.SetTrigger("takeDamage");
+            StartCoroutine(Die());
+            //_animator.SetTrigger("takeDamage");
         }
         else
         {
@@ -59,8 +65,15 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Die()
     {
         _animator.SetTrigger("death");
+        _playerMovement.FreezeMovement();
+
         yield return new WaitForSeconds(3);
         Destroy(gameObject);
+
+        if (playerDeathCallback != null)
+        {
+            playerDeathCallback.Invoke();
+        }
     }
 
 

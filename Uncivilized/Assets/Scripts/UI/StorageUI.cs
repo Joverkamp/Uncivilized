@@ -12,19 +12,18 @@ public class StorageUI : MonoBehaviour
     public Transform checklist;
     public GameObject tmpPrefab;
 
-
-    void Start()
+    private void Awake()
     {
         //get ref to singleton
         _storage = Storage.instance;
 
         //subscribe to delegate
         _storage.onStorageChangedCallback += UpdateUI;
+    }
 
-        //TODO level requirements need to be handled elsewhere
-        _storage.AddItemRequirement(ItemType.food, 3);
-        _storage.AddItemRequirement(ItemType.water, 3);
-        _storage.AddItemRequirement(ItemType.wood, 3);
+    void Start()
+    {
+
     }
     
     void UpdateUI()
@@ -47,7 +46,15 @@ public class StorageUI : MonoBehaviour
             {
                 if (requiredSlot.itemType == storedSlot.itemType)
                 {
-                    stored = storedSlot.amount;
+                    //limit stored item display to required amount
+                    if(storedSlot.amount > required)
+                    {
+                        stored = required;
+                    }
+                    else
+                    {
+                        stored = storedSlot.amount;
+                    }
                     break;
                 }
             }
@@ -59,6 +66,16 @@ public class StorageUI : MonoBehaviour
             //get TMP component and change text
             TextMeshProUGUI tmp = newChecklistItem.GetComponent<TextMeshProUGUI>();
             tmp.text = requiredSlot.itemType + "(" + stored + "/" + required + ")";
+            
+            //green text if all items stored
+            if(stored >= required)
+            {
+                tmp.color = Color.green;
+            }
+            else
+            {
+                tmp.color = Color.white;
+            }
 
         }
     }
